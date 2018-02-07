@@ -1,0 +1,21 @@
+language: python
+python:
+  - 3.6
+  - nightly
+install:
+  - pip install -r requirements/dev.txt
+script:
+  - nosetests --with-cov --cov-config .coveragerc
+after_success:
+  - codecov
+jobs:
+  include:
+    - stage: Deploy
+      script: skip
+      deploy:
+        provider: heroku
+        api_key:
+          secure: URQd2RNtXMOz4v8B27ntelrWx7qa5+2Vh879YQtX9ax9b+OKHFrQc11MmsdH3Ar039exvDLaeIrSopHtcU2E3JSRUgNzRwkCKanPYjBOjTCDQ5KWB3tmZFZ8tdRrUrx3OJpVL5I3XVs4PrXhsIGLiI0I5SyKnDJCEcWjF9iIdP0xGhaFSdhF1txgSS9M16lK8AhyuQ3r2nO48BxgQ54J8Uk+itqnxQKbWNNB8znntJqOrzsRAFAoYF2nUpCrX33dtex6spd/bzsqM28qYpZcEu8avFvmrLsYrFDaGEk1QOnYcpT1wpOTfjKcUpwhIFDT32eCAnaCKI8oP8VuuIibXk/nVNQUAVt61FNw4/AJAP3AJk0gT0/zudSxQwQewlFC6Yab4xaNN4e+b9L88Lr5nk6Ca95d/k+Bue1SwbiYavj8zxVwZ+hLK4R9FtILcGQS7i0KMZl/8x7M4BHX66g+OhcN21CU81Q/WfV169WSigWme/QGCB05sGa3HDVIN1m2RNXjLagVOdyhF4rlyFKNM5fGgLVNuRVoyJlnm1P0orzlYsuQX2AImZ6E34MvAjWpSmiSIb2A4t94QS8OcBY6gC5v6NItU91+0rD/gj1HwRtGETSxQCMzvkApAznrhEZ1If1swwGMARITpy4Z/Quf8T5ygAR1139VrTfHf8dLVvE=
+        app: jan-ci-shoppie
+        on:
+          repo: aerlfredith/ci_workshop
